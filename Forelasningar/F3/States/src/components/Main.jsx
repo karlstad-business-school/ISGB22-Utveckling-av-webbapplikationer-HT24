@@ -29,7 +29,6 @@ class Main extends Component{
         time: prevState.time + 1
       }));
 
-
       //this.randomColor();
     }, 1000);
   }
@@ -65,7 +64,7 @@ class Main extends Component{
       height: 300 + "px",
       backgroundColor: "rgb(" + this.state.red + ", " + this.state.green + ", " + this.state.blue + ")"
     }
-    
+
     return (
       <main style={css}>
         <h1>Detta är main</h1>
