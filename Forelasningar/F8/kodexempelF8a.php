@@ -31,8 +31,26 @@
 
                 if( isset( $_POST["skicka"] ) ) {
 
-                    //Här skriver du din kod!
+                    $summa = $_POST["summa"];
+                    $antal = $_POST["antal"];
 
+                    for($i = 1; $i <= 6 ; $i++) {
+
+                        $slumptal = rand(1,6);
+                        echo(IMG . "/Die" . (26 + $slumptal) . ".svg' alt='tärning'/>");
+                        $summa = $summa + $slumptal;
+
+                    }
+
+                    $antal++;
+                    echo("<p>Summan av alla tärningar är nu: " . $summa . "</p>");
+                    echo("<p>Du har nu kört " . $antal . " omgångar.</p>");
+
+                    if($summa>=100) {
+                        $summa=0;
+                        $antal=0;
+                        echo("<h1>Tjo du har vunnit!</h1>");
+                    }
                 }
 
             ?>
