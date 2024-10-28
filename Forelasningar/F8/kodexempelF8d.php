@@ -1,9 +1,35 @@
 <?php
 
     $antal = 0;
+    $summa = 0;
     $stringToEcho = "";
 
     if( isset( $_POST["skicka"] ) ) {
+
+        session_start();
+        session_regenerate_id((true));
+
+        if( isset($_SESSION["antal"])) {
+            $antal = $_SESSION["antal"];
+        }
+
+        if( isset($_SESSION["summa"])) {
+            $summa = $_SESSION["summa"];
+        }
+
+        define("IMG", "<img src='http://localhost:3000/server/ISGB22-Utveckling-av-webbapplikationer-HT24/Forelasningar/F8/bilder/");
+
+        for($i = 1; $i <= 6 ; $i++) {
+
+            $slumptal = rand(1,6);
+            $stringToEcho = $stringToEcho . (IMG . $slumptal . ".png' alt='tärning'/>");
+            $summa = $summa + $slumptal;
+
+        }
+
+        $_SESSION["antal"] = $antal;
+        $_SESSION["summa"] = $summa;
+
 
     }
 

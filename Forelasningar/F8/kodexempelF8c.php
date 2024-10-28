@@ -1,9 +1,32 @@
 <?php
 
     $antal = 0;
+    $summa = 0;
     $stringToEcho = "";
 
     if( isset( $_POST["skicka"] ) ) {
+
+        if( isset($_COOKIE["antal"])) {
+            $antal = $_COOKIE["antal"];
+        }
+        if( isset($_COOKIE["summa"])) {
+            $summa = $_COOKIE["summa"];
+        }
+
+        $antal++;
+
+
+        define("IMG", "<img src='http://localhost:3000/server/ISGB22-Utveckling-av-webbapplikationer-HT24/Forelasningar/F8/bilder/");
+
+        for($i = 1; $i <= 6 ; $i++) {
+
+            $slumptal = rand(1,6);
+            $stringToEcho = $stringToEcho . (IMG . $slumptal . ".png' alt='tärning'/>");
+            $summa = $summa + $slumptal;
+
+        }
+        setcookie("antal", $antal, time() + 3600);
+        setcookie("summa", $summa, time() + 3600);
 
     }
 
