@@ -10,7 +10,7 @@
         
         try {
            
-            $dataSourceName = "mysql:" . "host=localhost;" . "dbname=XXX;" . "charset=utf8";
+            $dataSourceName = "mysql:" . "host=localhost;" . "dbname=tuppenbilar;" . "charset=utf8";
             $userName = "root";
             $passWord = "";
             $dbhsOptions = array(
@@ -19,6 +19,29 @@
             );
 
             $dbh = new PDO($dataSourceName, $userName, $passWord, $dbhsOptions);
+
+            $username = $_POST["txtUsername"];
+            $password = $_POST["txtPassword"];
+
+            $sql = "SELECT * FROM users WHERE username=:anv AND password=:losen";
+
+            $stmt = $dbh->prepare($sql);
+            $stmt->bindValue(":anv", $username);
+            $stmt->bindValue(":losen", $password);
+            $stmt->execute();
+
+            if($stmt->rowCount()>0) {
+                echo("RÄÄÄÄÄT");
+                $titel = "Inloggad";
+                $inloggad = "true";
+                $_SESSION["inloggad"] = "true";
+
+            }
+            else {
+                echo("FEEEEEEEL");
+            }
+
+
   
         }
         catch(PDOException $error){
@@ -26,8 +49,9 @@
         }
 
     }
-    else if(isset($_SESSION["inloggad"])) {
-        $dataSourceName = "mysql:" . "host=localhost;" . "dbname=XXX;" . "charset=utf8";
+    
+    if(isset($_SESSION["inloggad"])) {
+        $dataSourceName = "mysql:" . "host=localhost;" . "dbname=tuppenbilar;" . "charset=utf8";
         $userName = "root";
         $passWord = "";
         $dbhsOptions = array(
@@ -42,7 +66,19 @@
 
     function getCars($dbh) {
         try {
-            
+            $sql = "SELECT * FROM bilar ORDER BY marke";
+            $stmt = $dbh->prepare($sql);
+            $stmt->execute();
+
+            $str = "<h1>Alla våra fina beg-bilar</h1>";
+
+            while($row = $stmt->fetch()) {
+                $str .= "<p>Bilmärke: " . $row["marke"] . "<br>";
+                $str .= "Modell: " . $row["modell"] . "<br>";
+                $str .= "Regnr: " . $row["regnr"] . "</p>";
+            }
+
+            return $str;
 
   
         }
