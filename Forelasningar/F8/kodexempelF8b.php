@@ -24,7 +24,7 @@
         <main>    
             <?php
 
-                define("IMG", "<img src='https://openclipart.org/download/2821");
+                define("IMG", "<img src='http://localhost:3000/server/ISGB22-Utveckling-av-webbapplikationer-HT24/Forelasningar/F8/bilder/");
 
                 $summa = 0;
                 $antal = 0;
@@ -37,7 +37,7 @@
                     for($i = 1; $i <= 6 ; $i++) {
 
                         $slumptal = rand(1,6);
-                        echo(IMG . "/Die" . (26 + $slumptal) . ".svg' alt='tärning'/>");
+                        echo(IMG . $slumptal . ".png' alt='tärning'/>");
                         $summa = $summa + $slumptal;
 
                     }
