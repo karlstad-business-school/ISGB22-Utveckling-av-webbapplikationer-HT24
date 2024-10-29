@@ -77,6 +77,27 @@
                 try {
                     $dbh =  dbConnect();
 
+                    $sql = "INSERT INTO `tblkund`(`epost`, `personnummer`, `losenord`) VALUES (:epost,:persnr,:losen);";
+
+                    $hashat_losen = hash("SHA256", $_POST["losen1"]);
+
+                    $nyckel = "valfristrang1234";
+                    $metod = "AES-128-ECB";
+                    $encryptedPnr = openssl_encrypt($_POST["persnr"], $metod, $nyckel);
+
+                    $stmt = $dbh->prepare($sql);
+                    $stmt->bindValue(":epost", $_POST["epost"]);
+                    $stmt->bindValue(":persnr", $encryptedPnr);
+                    $stmt->bindValue(":losen", $hashat_losen);
+
+                    $stmt->execute();
+                    $stmt = null;
+                    $dbh = null;
+
+                    session_start();
+                    $_SESSION["inloggad"] = "mört";
+
+
 
                 }
                 catch(Exception $ex) {
